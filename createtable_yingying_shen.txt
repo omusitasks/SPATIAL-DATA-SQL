@@ -1,0 +1,76 @@
+-- create our database
+
+drop schema if exists yingying_shen cascade;
+create schema yingying_shen;
+
+-- create the tables for our database
+
+create table bus_station ( 
+bus_station_id serial,
+last_repainted date,
+name character (255)
+);
+
+
+create table public.bus_station_cleaner (
+bus_station_id integer,
+cleaner_id integer,
+bus_station_cleaner_id serial,
+hours_per_week double precision
+);
+
+
+create table cleaners ( 
+cleaner_id serial,
+cleaner_name character (255),
+cleaner_surname character (255),
+date_of_birth date,
+contact_number character (255),
+cost_per_hour double precision
+);
+
+
+create table waiting_room ( 
+waiting_room_id serial,
+bus_station_id integer,
+opening_time double precision,
+closing_time double precision
+);
+
+
+create table air_quality_sensors ( 
+sensor_make character (255),
+sensor_installation_date date,
+sensor_id serial,
+waiting_room_id integer
+);
+
+
+
+create table air_quality_values ( 
+air_quality_id serial,
+sensor_id integer,
+total_voc double precision,
+reading_timestamp date,
+temperature double precision,
+humidity double precision
+);
+
+
+-- Add the geometry columns separately using addgeometrycolum. 
+-- All geometry should have SRID of 27700 (British National Grid)
+
+
+-- Add postgis extension to database
+
+CREATE EXTENSION postgis;
+
+-- add to tables having columns with geometry
+
+SELECT AddGeometryColumn('bus_station', 'location', 27700, 'POINT', 2 );
+
+
+SELECT AddGeometryColumn('air_quality_sensors', 'location', 27700, 'POINT', 2 );
+
+
+SELECT AddGeometryColumn('waiting_room', 'location', 27700, 'POINT', 2 );

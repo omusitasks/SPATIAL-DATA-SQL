@@ -1,0 +1,137 @@
+Select from bus_station;
+
+ALTER TABLE bus_station ADD PRIMARY KEY (bus_station_id) ;
+
+ALTER TABLE bus_station ALTER COLUMN bus_station_id SET NOT NULL;
+
+ALTER TABLE bus_station ALTER COLUMN last_repainted SET NOT NULL;
+
+ALTER TABLE bus_station ADD CONSTRAINT location UNIQUE (location);
+
+ALTER TABLE bus_station ALTER COLUMN location SET NOT NULL;
+
+ALTER TABLE bus_station ALTER COLUMN name SET NOT NULL;
+
+
+Select from cleaners;
+
+ALTER TABLE cleaners ADD PRIMARY KEY (cleaner_id);
+
+ALTER TABLE cleaners ALTER COLUMN cleaner_id SET NOT NULL;
+
+ALTER TABLE cleaners ADD CONSTRAINT cleaner_id UNIQUE (cleaner_id);
+
+ALTER TABLE cleaners ALTER COLUMN cleaner_name SET NOT NULL;
+
+ALTER TABLE cleaners ADD CONSTRAINT cleaner_name UNIQUE (cleaner_name);
+
+ALTER TABLE cleaners ALTER COLUMN cleaner_surname SET NOT NULL;
+
+ALTER TABLE cleaners ADD CONSTRAINT cleaner_surname UNIQUE (cleaner_surname);
+
+ALTER TABLE cleaners ALTER COLUMN date_of_birth SET NOT NULL;
+
+ALTER TABLE cleaners ADD CONSTRAINT date_of_birth UNIQUE (date_of_birth);
+
+ALTER TABLE cleaners ALTER COLUMN  cost_per_hour SET NOT NULL;
+
+ALTER TABLE cleaners ALTER COLUMN  contact_number SET NOT NULL;
+
+
+
+Select from bus_station_cleaner;
+
+ALTER TABLE bus_station_cleaner ADD FOREIGN KEY (bus_station_id) REFERENCES bus_station;
+
+ALTER TABLE bus_station_cleaner ADD FOREIGN KEY (cleaner_id) REFERENCES cleaners;
+
+ALTER TABLE bus_station_cleaner ADD PRIMARY KEY (bus_station_cleaner_id);
+
+ALTER TABLE bus_station_cleaner ADD CONSTRAINT bus_station_cleaner_id UNIQUE (bus_station_cleaner_id) ;
+
+ALTER TABLE bus_station_cleaner ALTER COLUMN  bus_station_cleaner_id SET NOT NULL;
+
+ALTER TABLE bus_station_cleaner ADD CHECK (hours_per_week<49);
+
+ALTER TABLE bus_station_cleaner ALTER COLUMN  hours_per_week SET NOT NULL;
+
+
+
+
+
+Select from waiting_room;
+
+ALTER TABLE waiting_room ADD PRIMARY KEY (waiting_room_id);
+
+ALTER TABLE waiting_room ADD CONSTRAINT waiting_room_id UNIQUE (waiting_room_id);
+
+ALTER TABLE waiting_room ALTER COLUMN waiting_room_id SET NOT NULL;
+
+ALTER TABLE waiting_room ADD FOREIGN KEY (bus_station_id) REFERENCES bus_station;
+
+ALTER TABLE waiting_room ALTER COLUMN opening_time SET NOT NULL ;
+
+ALTER TABLE waiting_room ALTER COLUMN  closing_time SET NOT NULL;
+
+
+
+Select from air_quality_sensors;
+
+ALTER TABLE air_quality_sensors ADD PRIMARY KEY (sensor_id);
+
+ALTER TABLE air_quality_sensors ALTER COLUMN sensor_id SET NOT NULL;
+
+ALTER TABLE air_quality_sensors ADD CONSTRAINT sensor_id UNIQUE (sensor_id);
+
+ALTER TABLE air_quality_sensors ADD FOREIGN KEY (waiting_room_id) REFERENCES waiting_room;
+
+ALTER TABLE air_quality_sensors ALTER COLUMN sensor_make SET NOT NULL ;
+
+ALTER TABLE air_quality_sensors ALTER COLUMN  sensor_installation_date SET NOT NULL;
+
+
+
+
+
+Select from air_quality_values;
+
+ALTER TABLE air_quality_values ADD PRIMARY KEY (air_quality_id);
+
+ALTER TABLE air_quality_values ALTER COLUMN air_quality_id SET NOT NULL;
+
+ALTER TABLE air_quality_values ADD CONSTRAINT air_quality_id UNIQUE (air_quality_id);
+
+ALTER TABLE air_quality_values ADD FOREIGN KEY (sensor_id) REFERENCES air_quality_sensors;
+
+ALTER TABLE air_quality_values ADD CONSTRAINT reading_timestamp UNIQUE (reading_timestamp);
+
+ALTER TABLE air_quality_values ALTER COLUMN reading_timestamp SET NOT NULL;
+
+ALTER TABLE air_quality_values ALTER COLUMN temperature SET NOT NULL;
+
+ALTER TABLE air_quality_values ALTER COLUMN humidity SET NOT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

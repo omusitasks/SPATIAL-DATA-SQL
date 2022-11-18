@@ -1,0 +1,128 @@
+
+-- bus_station
+
+insert into bus_station
+(last_repainted, name, location)
+values
+('2019-03-20','Main Bus Station 50', (st_geomfromtext('POLYGON((101351 103356,101551 103356,101551 103656,101351 103656,101351 103356))',27700)
+));
+
+
+-- Alter table bus_station alter column location type geometry (Geometry,27700);
+-- waiting_room
+
+insert into waiting_room
+(bus_station_id, opening_time, closing_time, location)
+values
+(1, 
+ 5.30,
+ 23.30, 
+ (st_geomfromtext('POLYGON((101401 103406,101501 103406,101501 103606,101401 103606,101401 103406))',27700))
+);
+
+-- Alter table waiting_room alter column location type geometry (Geometry,27700);
+
+
+
+-- air_quality_sensors 
+
+
+
+insert into air_quality_sensors 
+(waiting_room_id, sensor_make, sensor_installation_date, location )
+values
+(1,
+ 'UCL Sensors 50', 
+ '2022-05-03',
+ st_geomfromtext('POINT(101451 103456)', 27700)
+);
+
+
+insert into air_quality_sensors 
+(waiting_room_id, sensor_make, sensor_installation_date, location )
+values
+(1,
+ 'UCL Sensors 34', 
+ '2022-05-07',
+ st_geomfromtext('POINT(101456 103458)', 27700)
+ );
+
+
+insert into air_quality_sensors 
+(waiting_room_id, sensor_make, sensor_installation_date, location )
+values
+(1,
+ 'UCL Sensors 25',
+ '2022-05-09',
+ st_geomfromtext('POINT(101461 103468)', 27700)
+ );
+
+
+		
+-- air_quality_values
+
+
+insert into air_quality_values
+(sensor_id, total_voc, reading_timestamp, temperature, humidity)
+values
+(3,487, '2022-05-28', 33.5, 75)
+
+
+insert into air_quality_values
+(sensor_id, total_voc, reading_timestamp, temperature, humidity)
+values
+(4,455, '2022-06-22', 33.5, 75)
+
+
+insert into air_quality_values
+(sensor_id, total_voc, reading_timestamp, temperature, humidity)
+values
+(4,426, '2022-07-14', 16.5, 75)
+
+
+insert into air_quality_values
+(sensor_id, total_voc, reading_timestamp, temperature, humidity)
+values
+(4,394, '2022-07-16', 33.5, 75)
+
+
+insert into air_quality_values
+(sensor_id, total_voc, reading_timestamp, temperature, humidity)
+values
+(5,363, '2022-07-17', 17.5, 75)
+
+
+-- cleaners
+
+insert into cleaners
+(cleaner_name, cleaner_surname, date_of_birth, contact_number, cost_per_hour )
+values
+('Aza','Con', '1970-02-23', 33.5, 01397114884)
+
+
+insert into cleaners
+(cleaner_name, cleaner_surname, date_of_birth, contact_number, cost_per_hour )
+values
+('Afh','Adg', '1992-05-23', 33.5, 01397413924)
+
+insert into cleaners
+(cleaner_name, cleaner_surname, date_of_birth, contact_number, cost_per_hour )
+values
+('Akm','Ach', '1967-02-12', 13.5, 01397563456)
+
+-- bus_station_cleaner
+
+insert into bus_station_cleaner
+(cleaner_id, bus_station_id,  hours_per_week)
+values
+(1, 1, 16)
+
+insert into bus_station_cleaner
+(cleaner_id, bus_station_id, hours_per_week)
+values
+(2, 1, 28)
+
+insert into bus_station_cleaner
+(cleaner_id, bus_station_id, hours_per_week)
+values
+(3, 1, 47)
